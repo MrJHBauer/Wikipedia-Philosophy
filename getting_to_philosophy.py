@@ -1,4 +1,5 @@
 import requests
+import sys
 from bs4 import BeautifulSoup
 
 base_url = "https://en.wikipedia.org"
@@ -136,4 +137,6 @@ def get_links(anchors):
     return links
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        departure = sys.argv[1]  # If the user has supplied a page use it.
     getting_to_philosophy()
