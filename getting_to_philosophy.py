@@ -33,8 +33,25 @@ def getting_to_philosophy():
     anchors = get_anchors(paragraphs)
     # Get all of the desired links.
     links = get_links(anchors)
-    # Print the links contained within the page that and acceptable.
-    print(links)
+
+    while destination not in visited:
+        next_article = next(link for link in links if link not in visited)
+
+        print("Visiting: {}".format(next_article))
+
+        response = get_page(next_article)
+
+        soup = soupify_page(response.content)
+
+        article = get_article(soup)
+
+        paragraphs = get_paragraphs(article)
+
+        anchors = get_anchors(paragraphs)
+
+        links = get_links(anchors)
+
+        visited.append(next_article)
 
 
 def get_page(url):
