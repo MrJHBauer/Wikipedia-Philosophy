@@ -36,7 +36,14 @@ def getting_to_philosophy():
     links = get_links(anchors)
 
     while destination not in visited:
-        next_article = next(link for link in links if link not in visited)
+        # Find the next link on the current page that hasn't be visited.
+        next_article = next((link for link in links if link not in visited),
+                            None)
+        # If there is no viable link exit and tell the user of this issue.
+        if next_article is None:
+            sys.exit("Wikipedia article: {}, "
+                     "contains no viable links".format(
+                        soup.find("h1", id="firstHeading").text))
 
         print("Visiting: {}".format(next_article))
 
